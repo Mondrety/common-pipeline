@@ -7,14 +7,31 @@ name: Deploy to Salesforce Pipeline
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_call:
+    secrets:
+      SALESFORCECLIENTID:
+        description: 'Client ID of org from connected app'
+        required: true
+      SALESFORCEURL:
+        description: 'URL og org'
+        required: true
+      SALESFORCEUSERNAME:
+        description: 'Username of org'
+        required: true
+ # commenting pull request for now not needed 
+  # pull_request:
+   # branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
+    environment: RegPack
+    #env:
+      #SALESFORCECLIENTID: ${{ secrets.SALESFORCECLIENTID }}
+      #SALESFORCEURL: ${{ secrets.SALESFORCEURL }}
+      #SALESFORCEUSERNAME: ${{ secrets.SALESFORCEUSERNAME }}
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -48,9 +65,9 @@ jobs:
     # Authorize SF Org
     - name: Authorize SF Org
       env:
-        CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
-        USERNAME: ${{ secrets.SALESFORCESANDBOXUSERNAME }}
-        INSTANCE_URL: ${{ secrets.SALESFORCESANDBOXINSTANCEURL }}
+        CLIENT_ID: ${{ secrets.SALESFORCECLIENTID }}
+        USERNAME: ${{ secrets.SALESFORCEUSERNAME }}
+        INSTANCE_URL: ${{ secrets.SALESFORCEURL }}
       run: sfdx force:auth:jwt:grant --client-id $CLIENT_ID --jwt-key-file ./buildfiles/server.key --username $USERNAME --instance-url $INSTANCE_URL -a regpack
       #run: sfdx auth:web:login --instance-url $INSTANCE_URL
            #sfdx force:org:open -u $USERNAME
