@@ -84,4 +84,5 @@ jobs:
     # Deploy
     - name : Deploy to SF Org
       #run: sfdx force:mdapi:deploy -l RunLocalTests -d ./toDeploy -u prod -w 10
+      when: manual
       run: sfdx force:source:deploy --manifest manifest/package.xml --target-org regpack
