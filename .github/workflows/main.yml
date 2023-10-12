@@ -47,6 +47,16 @@ jobs:
           unzip pmd-bin-$PMD_VERSION.zip -d ~
           mv ~/pmd-bin-$PMD_VERSION ~/pmd
           ~/pmd/bin/run.sh pmd --version
+    # Artifacts directory     
+    - name: Create artifact files
+      run: |
+        mkdir -p path/to/dir-1/
+    # Artifacts on failed PMD       
+    - name: Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: 'Artifact-A'
+        path: path/to/dir-1/file1.txt
     # Validate - Apex - Code       
     - name: validate-apex-code
       #uses: legetz/setup-pmd@v6.48
