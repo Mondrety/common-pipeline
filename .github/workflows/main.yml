@@ -60,13 +60,13 @@ jobs:
     # Validate - Apex - Code       
     - name: validate-apex-code
       #uses: legetz/setup-pmd@v6.48
-      run: ~/pmd/bin/run.sh pmd -language apex --dir force-app/main/default/classes --rulesets pmdRule/apex_ruleset.xml -f outputRule.json
+      run: ~/pmd/bin/run.sh pmd -language apex --dir force-app/main/default/classes --rulesets pmdRule/apex_ruleset.xml -f json
     # Artifacts on failed PMD       
     - name: Artifact
       uses: actions/upload-artifact@v3
       with:
         name: Artifact-A
-        path: outputRule.json
+        path: json
     # Setup Node
     - name: Setup Node
       uses: actions/setup-node@v1
