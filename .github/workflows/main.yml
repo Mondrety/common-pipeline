@@ -61,12 +61,21 @@ jobs:
     - name: validate-apex-code
       #uses: legetz/setup-pmd@v6.48
       run: ~/pmd/bin/run.sh pmd -language apex --dir force-app/main/default/classes --rulesets pmdRule/apex_ruleset.xml -f json
+      
+    - name: Step 1 - Create a temporary artifact downloads folder
+      run: mkdir downloads
+        
+    - name: step 2 - Add artifacts to publish to the temp folder
+      run: |
+          cd downloads
+          echo 'alpha'    > alpha.json
+          cd ..
     # Artifacts on failed PMD       
     - name: Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: Artifact-A
-        path: json
+        name: Artifact
+        path: downloads
     # Setup Node
     - name: Setup Node
       uses: actions/setup-node@v1
