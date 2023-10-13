@@ -64,6 +64,7 @@ jobs:
       run: |
           cd downloads
           echo 'alpha'    > alpha.json
+          echo 'testartifacts'    > testartifacts.txt
           cd ..
     # Artifacts on failed PMD       
     - name: Artifact
@@ -75,7 +76,7 @@ jobs:
     # Validate - Apex - Code       
     - name: validate-apex-code
       #uses: legetz/setup-pmd@v6.48
-      run: ~/pmd/bin/run.sh pmd -language apex --dir force-app/main/default/classes --rulesets pmdRule/apex_ruleset.xml -f json
+      run: ~/pmd/bin/run.sh pmd -language apex --dir force-app/main/default/classes --rulesets pmdRule/apex_ruleset.xml -f text
       
     # Setup Node
     - name: Setup Node
