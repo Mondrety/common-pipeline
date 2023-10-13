@@ -73,17 +73,17 @@ jobs:
         name: Artifact
         path: downloads
         
+    - name: Artifact 1
+      uses: actions/upload-artifact@v3
+      with:
+        name: Artifact 1
+        path: outputRule.json
+        
     # Validate - Apex - Code       
     - name: validate-apex-code
       #uses: legetz/setup-pmd@v6.48
       run: ~/pmd/bin/run.sh pmd -language apex --dir force-app/main/default/classes --rulesets pmdRule/apex_ruleset.xml -f json --fail-on-violation true --report-file outputRule.json --no-cache
-
-    - name: Artifact 1
-      uses: actions/upload-artifact@v3
-      with:
-        name: Artifact
-        path: outputRule.json
-        
+      
     # Setup Node
     - name: Setup Node
       uses: actions/setup-node@v1
